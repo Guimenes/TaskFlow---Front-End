@@ -1,0 +1,301 @@
+/* Navbar principal */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.800);
+  color: white;
+  font-family: Arial, sans-serif;
+  height: 60px;
+  position: relative;
+  box-shadow: 0px 4px 10px rgba(14, 13, 13, 0.733); 
+  transition: box-shadow 0.3s ease-in-out; 
+}
+
+/* Efeito hover na navbar */
+.navbar:hover {
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.63);
+}
+
+/* Contêiner do menu de hambúrguer */
+.navbar-menu-hamburguer {
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+/* Botão do menu de hambúrguer */
+.menu-toggle {
+  padding-left: 30px;
+  padding-right: 70px;
+  padding-top: 20px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Estilo das linhas do botão do menu */
+.menu-toggle div {
+  width: 40px;
+  height: 5px;
+  background: #fff;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+/* Animação do botão de hambúrguer quando o menu está aberto */
+.menu.menu-toggle .line1 { 
+  transform: rotate(-45deg) translate(-5px, 6px); 
+}
+.menu.menu-toggle .line2 { 
+  opacity: 0; 
+}
+.menu.menu-toggle .line3 { 
+  transform: rotate(45deg) translate(-5px, -6px); 
+}
+
+/* Sidebar */
+.sidebar {
+    background: rgba(0, 0, 0, 0.800);
+}
+
+/* Sidebar aberta */
+.sidebar.open {
+  left: 0;
+  margin: 0;
+  height: "100%";
+}
+
+/* Box principal do layout */
+.box2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Estilos do logo na navbar */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 65px;
+}
+
+#img-logo {
+  width: 50px;
+  height: 50px;
+}
+
+#title-logo {
+  position: relative;
+  font-size: 48px;
+  line-height: 140%;
+  font-family: Inter;
+  color: #fff;
+  text-align: left;
+  padding-left: 20px;
+}
+
+/* Texto na navbar */
+#text1, #text2 {
+  width: 180px;
+  font-size: 24px;
+  display: inline-block;
+  font-family: Inter;
+  color: #fff;
+  text-align: left;
+  padding-left: 20px;
+}
+
+#text2 {
+  padding-left: 10px;
+}
+
+/* Box do lado direito da navbar */
+.box3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 10px;
+  padding-bottom: 20px;
+}
+
+/* Estilo do ícone do usuário */
+#img-user {
+  height: 60px;
+  width: 60px;
+}
+
+#text3 {
+  width: 250px;
+  font-size: 24px;
+  display: inline-block;
+  font-family: Inter;
+  color: #fff;
+  text-align: left;
+  padding-left: 10px;
+}
+
+/* Botões na navbar */
+.navbar-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  padding-left: 120px;
+  padding-top: 20px;
+}
+
+.navbar-buttons button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.2s ease-in-out, opacity 0.2s;
+}
+
+.navbar-buttons button:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+.navbar-buttons button img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Estilos para os itens no topo da sidebar */
+.top-sidebar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 40px;
+  padding-top: 10px;
+}
+
+#img-area {
+  padding-left: 20px;
+  height: 45px;
+  width: 44px;
+}
+
+#text6 {
+  padding-left: 20px;
+}
+
+#img-compart {
+  padding-left: 70px;
+}
+
+/* Divisor entre seções na sidebar */
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #4F4C4C;
+  margin: 20px 0;
+}
+
+/* Ícones adicionais na sidebar */
+#text8 {
+  padding-left: 20px;
+}
+
+#img-icon-add {
+  padding-left: 180px;
+}
+
+/* Lista de quadros na sidebar */
+.list-Quadro {
+  padding-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 40px;
+}
+
+/* Estilos para itens do menu da sidebar */
+.nav-sidebar-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 40px;
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.nav-sidebar-item:hover {
+  background-color: rgba(255, 255, 255, 0.1); 
+}
+
+/* Selects na sidebar */
+.nav-sidebar-select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nav-sidebar-select:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Barra de espaçamento */
+#barra2 {
+  margin-top: 50px;
+}
+
+/* Lista de itens de quadro */
+.list-Quadro {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 40px;
+}
+
+/* Estilo para subitens na sidebar */
+.nav-sidebar-itemul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.nav-sidebar-itemul:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.nav-sidebar-itemul:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-sidebar-leftul {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-sidebar-rightul {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Estilo para o ícone de quadro */
+#img-quadro {
+  padding-top: 13px;
+  width: 70px;
+  height: 50px;
+}
+
