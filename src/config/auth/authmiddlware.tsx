@@ -5,27 +5,26 @@ import { Navigate, useLocation } from "react-router";
   /* import { DeleteToken, GetTokenAndVerify } from "../../utils/auth/auth"; */
 }
 import Loading from "../../components/loading/load";
+import ApiProvider from "../../utils/provider/providerUtils";
+import { authUtils } from "../../utils/auth/authUtils";
 
 const AuthMiddleware = ({ children }: { children: JSX.Element }) => {
   const location = useLocation();
-  const [isVerified, setIsVerified] = useState<boolean | null>(true); // forçando o login use true
+  const [isVerified, setIsVerified] = useState<boolean | null>(null); // forçando o login use true
 
   useEffect(() => {
     const verify = async () => {
-      {
-        /* const user = await GetTokenAndVerify();
-      setIsVerified(!!user); */
-      }
+      const token = authUtils.getToken();
+      const response = await new ApiProvider("/verify-token").postOne(token) as any
+      setIsVerified(response)
     };
     verify();
-  }, [location]);
+  }, []);
 
   if (isVerified === null) return <Loading />;
 
   if (location.pathname.startsWith("/system") && !isVerified) {
-    {
-      /* DeleteToken(); */
-    }
+    authUtils.removeToken();
     return <Navigate to="/" replace />;
   }
 
