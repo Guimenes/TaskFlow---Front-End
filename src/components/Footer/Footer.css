@@ -1,0 +1,41 @@
+/* Footer.css */
+
+/* Importando a fonte do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Island+Moments&display=swap');
+
+/* Estilo para o footer */
+.Footer {
+  width: 100%;
+  background-color:rgba(0, 0, 0, 0.800);
+  padding: 10px 0; 
+  position: absolute;
+  bottom: 0; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+  box-shadow: 0px 4px 10px rgba(14, 13, 13, 0.829); 
+}
+
+/* Contêiner centralizado do logo e texto */
+.footer-content {
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+}
+
+/* Estilo para o logo */
+.footer-logo {
+  height: 35px; 
+  margin-right: 15px; 
+  vertical-align: middle;
+}
+
+/* Estilo para o texto com a fonte Island Moments */
+.footer-text {
+  color: white; 
+  font-size: 30px;
+  font-weight: regular;
+  font-family: 'Island Moments', cursive;
+  vertical-align: middle; 
+}
