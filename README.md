@@ -5,22 +5,14 @@
 src/
 ├── assets/ # Arquivos estáticos (imagens, SVG, etc.)
 ├── components/ # Componentes reutilizáveis
-│ ├── footer/ # Componente do rodapé
-│ ├── loading/ # Componente de carregamento
-│ ├── Nav/ # Barra de navegação
-│ └── Root/ # Componente pai que define o fundo da tela
 ├── config/ # Configurações globais (autenticação, temas, etc.)
 ├── pages/ # Páginas da aplicação
-│ ├── auth/ # Páginas de autenticação (login, registro)
-│ ├── error/ # Página de erro genérico
-│ ├── notfound/ # Página "Não encontrado"
-│ └── system/ # Páginas do sistema (após autenticação)
 ├── utils/ # Utilitários (helpers, formatação, etc.)
 │ └── auth/ # Utilitários de autenticação
 ├── App.css # Estilos globais
 ├── App.tsx # Componente raiz da aplicação
 ├── main.tsx # Ponto de entrada da aplicação
-└── ... # Outros arquivos de configuração
+
 ```
 
 ---
