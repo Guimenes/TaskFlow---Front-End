@@ -112,29 +112,6 @@ Esse provider garante um código mais limpo e reutilizável ao padronizar a inte
 ---
 
 
-## 🚀 Como Rodar o Projeto
-
-### Instalação das dependências
-
-```bash
-npm install
-```
-
-### Rodando o ambiente de desenvolvimento
-
-```bash
-npm run dev
-```
-
-### Build para produção
-
-```bash
-npm run build
-```
-
----
-
-
 ### Verificação de estilo de código
 
 ## 🎨 Estilização
