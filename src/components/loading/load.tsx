@@ -10,7 +10,7 @@ export default function Loading() {
         alignItems: "center",
         height: "100vh",
         width: "100vw",
-        backgroundColor: colors.bg,
+        background: colors.bg,
       }}
     >
       <CircularProgress
