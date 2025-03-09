@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Navbar.css";
 import LogoTSF from "../../assets/image/LogoTSF.png";
 import perfil from "../../assets/image/perfil.png";
@@ -13,7 +13,6 @@ import {
   Drawer,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
   Typography,
   Box,
@@ -32,24 +31,73 @@ import {
   Contrast,
   Dashboard,
   PeopleSharp,
+  BookmarkAdded,
 } from "@mui/icons-material";
 import { colors } from "../../assets/colors";
-
-const quadros = [
-  { name: "Ubmaps", icon: iconcores1, favorite: true },
-  { name: "Trabalho de Física", icon: iconcores1, favorite: false },
-  { name: "Trabalho de Cálculo", icon: iconcores2, favorite: false },
-  { name: "Provas 3° Semestre", icon: iconcores3, favorite: false },
-  { name: "Cursos de Programação", icon: iconcores4, favorite: false },
-];
-
-const OptionsMenu = [
-  { name: "Boards", icon: <Dashboard /> },
-  { name: "Members", icon: <PeopleSharp /> },
-];
+import ApiProvider from "../../utils/provider/providerUtils";
+import { useNavigate } from "react-router";
+import { storageUtils } from "../../utils/localstorage/storageUtils";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [boards, setBoards] = useState<any>([{}]);
+  const [options] = useState<any>([
+    { name: "MainBoard", icon: <BookmarkAdded />, route: "/system" },
+    { name: "Boards", icon: <Dashboard />, route: "/system/boards" },
+    { name: "Members", icon: <PeopleSharp />, route: "/system/members" },
+  ]);
+
+  useEffect(() => {
+    const fetchBoards = async () => {
+      const quadros = [
+        {
+          name: "Ubmaps",
+          icon: iconcores1,
+          favorite: true,
+          route: "/system/board/1",
+        },
+        {
+          name: "Trabalho de Física",
+          icon: iconcores1,
+          favorite: false,
+          route: "/system/board/2",
+        },
+        {
+          name: "Trabalho de Cálculo",
+          icon: iconcores2,
+          favorite: false,
+          route: "/system/board/3",
+        },
+        {
+          name: "Provas 3° Semestre",
+          icon: iconcores3,
+          favorite: false,
+          route: "/system/board/4",
+        },
+        {
+          name: "Cursos de Programação",
+          icon: iconcores4,
+          favorite: false,
+          route: "/system/board/5",
+        },
+      ];
+
+      try {
+        const mainWorkspace = storageUtils.getItem("mainWorkspace") as string;
+        const responseBoards = (await new ApiProvider("/get-boards").getOne(
+          mainWorkspace
+        )) as any;
+
+        if (responseBoards.status == 200) return setBoards(responseBoards);
+        if (responseBoards.status !== 200) return setBoards(quadros);
+      } catch (error) {
+        setBoards(quadros);
+      }
+    };
+
+    fetchBoards();
+  }, []);
 
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
@@ -127,9 +175,9 @@ const Navbar = () => {
           </Box>
           <Divider sx={{ margin: 2 }} />
           <List>
-            {OptionsMenu.map((options, index) => (
+            {options.map((options: any, index: any) => (
               <ListItem
-                button
+                component="li"
                 key={index}
                 sx={{
                   cursor: "pointer",
@@ -138,6 +186,9 @@ const Navbar = () => {
                     boxShadow: "0 0 10px 1px rgba(255, 255, 255, 0.7)", // Efeito de brilho
                     backgroundColor: "rgba(255, 255, 255, 0.1)", // Leve mudança de fundo
                   },
+                }}
+                onClick={() => {
+                  navigate(options.route);
                 }}
               >
                 <ListItemText primary={options.name} />
@@ -147,9 +198,9 @@ const Navbar = () => {
           </List>
           <Divider sx={{ margin: 2 }} />
           <List>
-            {quadros.map((quadro, index) => (
+            {boards.map((quadro: any, index: any) => (
               <ListItem
-                button
+                component="li"
                 key={index}
                 sx={{
                   cursor: "pointer",
@@ -159,15 +210,10 @@ const Navbar = () => {
                     backgroundColor: "rgba(255, 255, 255, 0.1)", // Leve mudança de fundo
                   },
                 }}
+                onClick={() => {
+                  navigate(quadro.route);
+                }}
               >
-                <ListItemIcon>
-                  <img
-                    src={quadro.icon}
-                    alt={quadro.name}
-                    width={24}
-                    height={24}
-                  />
-                </ListItemIcon>
                 <ListItemText primary={quadro.name} />
                 {quadro.favorite ? (
                   <StarIcon color="warning" />
