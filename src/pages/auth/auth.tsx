@@ -23,6 +23,7 @@ import { Google, Apple, Microsoft } from "@mui/icons-material";
 import { Check, Error } from "@mui/icons-material";
 import { authUtils } from "../../utils/auth/authUtils";
 import ApiProvider from "../../utils/provider/providerUtils";
+import { storageUtils } from "../../utils/localstorage/storageUtils";
 
 const FormContainer = styled(Paper)(({ theme }) => ({
   maxWidth: "70vw",
@@ -113,53 +114,85 @@ const Auth = () => {
   };
 
   const handleLoginOrSignUp = async () => {
-
     const isValidEmail = authUtils.isValidEmail(email);
     const isValidPasswordStrong = authUtils.isPasswordStrong(password);
     const isValidPasswordSecure = authUtils.isPasswordSecure(password);
-    const isValidPasswordConfirm = authUtils.isPasswordMatching(password, passwordConfirm);
+    const isValidPasswordConfirm = authUtils.isPasswordMatching(
+      password,
+      passwordConfirm
+    );
 
-    
     if (isSignUp && (!email || !password || !passwordConfirm)) {
       return showStatus("Error: Fill all options", false);
     }
 
     if (!isValidEmail) return showStatus("Error: Email is not valid", false);
-    if (!isValidPasswordStrong) return showStatus("Error: Password must have 3 or more characters", false);
-    if (!isValidPasswordSecure) return showStatus("Error: Password must have 1 uppercase letter, 1 lowercase letter and 1 number", false);
-    if (!isValidPasswordConfirm) return showStatus("Error: Confirmation password is not the same", false);
-
+    if (!isValidPasswordStrong)
+      return showStatus(
+        "Error: Password must have 3 or more characters",
+        false
+      );
+    if (!isValidPasswordSecure)
+      return showStatus(
+        "Error: Password must have 1 uppercase letter, 1 lowercase letter and 1 number",
+        false
+      );
+    if (!isValidPasswordConfirm)
+      return showStatus("Error: Confirmation password is not the same", false);
 
     if (isSignUp && email && password && passwordConfirm) {
       try {
-        const response = await new ApiProvider("/user").postOne({email, password}) as any
+        const response = (await new ApiProvider("/user").postOne({
+          email,
+          password,
+        })) as any;
         if (response.status == 201) {
           authUtils.setToken(response.token);
-          showStatus("SignUp successful", true);
-          navigate("/system");
-          return;
+
+          showStatus("SignUp successful, configuring your Workspace", true);
+          const responseWorkspace = (await new ApiProvider(
+            "/get-workspace"
+          ).getOne()) as any;
+
+          showStatus("Await", true);
+
+          if (responseWorkspace.status == 200) {
+            showStatus("Redirect for system", true);
+            storageUtils.setItem("mainWorkspace", responseWorkspace.id);
+            navigate("/system");
+            return;
+          }
+          if (responseWorkspace.status !== 200)
+            return showStatus(`Error: ${responseWorkspace.mensagem}`, false);
+
         }
-        if (response.status !== 201) return showStatus(`Error: ${response.mensagem}`, false);
+        if (response.status !== 201)
+          return showStatus(`Error: ${response.mensagem}`, false);
       } catch (error) {
         showStatus("Error: Several error", false);
       }
     }
-    
+
     try {
-      if (!email || !password) return showStatus("Error: Fill all options", false);
-    
-      const response = await new ApiProvider("/login").postOne({email, password}) as any
-        if (response.status == 200) {
-          authUtils.setToken(response.token);
-          showStatus("Login successful", true);
-          navigate("/system");
-          return;
-        }
-        if (response.status !== 200) return showStatus(`Error: ${response.mensagem}`, false);
+      if (!email || !password)
+        return showStatus("Error: Fill all options", false);
+
+      const response = (await new ApiProvider("/login").postOne({
+        email,
+        password,
+      })) as any;
+      if (response.status == 200) {
+        authUtils.setToken(response.token);
+        showStatus("Login successful", true);
+        navigate("/system");
+        return;
+      }
+      if (response.status !== 200)
+        return showStatus(`Error: ${response.mensagem}`, false);
     } catch (error) {
       showStatus("Error: Invalid Login", false);
     }
-  }
+  };
 
   return (
     <>

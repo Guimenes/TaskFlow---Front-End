@@ -7,12 +7,14 @@ import { authUtils } from "../../utils/auth/authUtils";
 
 const AuthMiddleware = ({ children }: { children: JSX.Element }) => {
   const location = useLocation();
-  const [isVerified, setIsVerified] = useState<boolean | null>(null); 
+  const [isVerified, setIsVerified] = useState<boolean | null>(null);
 
   const verify = async () => {
     const token = authUtils.getToken();
     try {
-      const response = (await new ApiProvider("/verify-token").postOne(token)) as any;
+      const response = (await new ApiProvider("/verify-token").postOne(
+        token
+      )) as any;
       if (response) {
         setIsVerified(response); // Sucesso, atualiza o estado
       } else {
@@ -25,9 +27,7 @@ const AuthMiddleware = ({ children }: { children: JSX.Element }) => {
 
   // UseEffect para fazer a verificação assim que o componente for montado ou quando a localização mudar
   useEffect(() => {
-    if (isVerified === null) {
-      verify(); // Se ainda não verificamos, executa a verificação
-    }
+    verify(); 
   }, [location, isVerified]);
 
   // Caso o estado de verificação ainda não esteja determinado, exibe o loading

@@ -7,11 +7,10 @@ interface RootProps {
   direction: string
 }
 
-const Root: React.FC<RootProps> = ({ children, direction }) => {
+const Root: React.FC<RootProps> = ({ children, direction}) => {
   return (
     <Box
       sx={{
-        height: "100%",
         minHeight: "100vh",
         width: "100vw",
         background: colors.bg,
@@ -20,7 +19,7 @@ const Root: React.FC<RootProps> = ({ children, direction }) => {
         alignItems: "center",
         alignContent: "center",
         flexDirection: direction,
-        overflowX: "hidden",
+        paddingBottom: 15
       }}
     >
       {children}

@@ -1,41 +1,51 @@
 import axios, { AxiosInstance } from "axios";
+import { authUtils } from "../auth/authUtils";
 
 const baseUrl = ""; // Defina a base URL conforme necessário
 
 class ApiProvider<T> {
   private api: AxiosInstance;
   private endpoint: string;
+  private token: string;
 
   constructor(endpoint: string) {
     this.endpoint = endpoint;
     this.api = axios.create({ baseURL: baseUrl });
+    this.token = authUtils.getToken() as string;
+
+    // Configura o token no header de todas as requisições
+    this.api.defaults.headers.common["Authorization"] = `Bearer ${this.token}`;
   }
 
-  async getOne(id: string | number): Promise<T> {
-    const response = await this.api.get<T>(`${this.endpoint}/${id}`);
+  async getOne(id?: string | number): Promise<T> {
+    const response = id
+      ? await this.api.get<T>(`${this.endpoint}/${id}`)
+      : await this.api.get<T>(`${this.endpoint}`);
     return response.data;
   }
 
   async getMany(filter?: Record<string, any>): Promise<T[]> {
     const response = await this.api.get<T[]>(this.endpoint);
     let data = response.data as any;
-    
+
     if (filter) {
-      data = data.filter((item: { [x: string]: any; }) => 
+      data = data.filter((item: { [x: string]: any }) =>
         Object.entries(filter).every(([key, value]) => item[key] === value)
       );
     }
-    
+
     return data;
   }
 
-  async postOne(data: T): Promise<T> {
+  async postOne(data?: T): Promise<T> {
     const response = await this.api.post<T>(this.endpoint, data);
     return response.data;
   }
 
   async postMany(dataArray: T[]): Promise<T[]> {
-    const results = await Promise.all(dataArray.map(data => this.postOne(data)));
+    const results = await Promise.all(
+      dataArray.map((data) => this.postOne(data))
+    );
     return results;
   }
 
@@ -44,7 +54,9 @@ class ApiProvider<T> {
     return response.data;
   }
 
-  async putMany(dataArray: { id: string | number, data: Partial<T> }[]): Promise<T[]> {
+  async putMany(
+    dataArray: { id: string | number; data: Partial<T> }[]
+  ): Promise<T[]> {
     const results = await Promise.all(
       dataArray.map(({ id, data }) => this.putOne(id, data))
     );
@@ -57,7 +69,7 @@ class ApiProvider<T> {
   }
 
   async deleteMany(ids: (string | number)[]): Promise<number> {
-    await Promise.all(ids.map(id => this.deleteOne(id)));
+    await Promise.all(ids.map((id) => this.deleteOne(id)));
     return ids.length;
   }
 }
