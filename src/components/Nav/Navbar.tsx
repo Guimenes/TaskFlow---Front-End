@@ -18,7 +18,6 @@ import {
   Box,
   Divider,
   Avatar,
-  Container,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -27,7 +26,6 @@ import StarIcon from "@mui/icons-material/Star";
 import { motion } from "framer-motion";
 import {
   Notifications,
-  ExitToApp,
   Help,
   Dashboard,
   PeopleSharp,

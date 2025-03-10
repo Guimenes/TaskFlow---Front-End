@@ -1,0 +1,93 @@
+.notificationContainer {
+    position: fixed;
+    top: 50px;
+    right: 180px;
+    width: 400px;
+    height: 550px;
+    background: #282E33;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: whitesmoke
+  }
+  
+  .notificationList {
+    max-height: 550px; 
+    overflow-y: auto; 
+    padding-right: 10px;
+  }
+  
+  .notificationList::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .notificationList::-webkit-scrollbar-thumb {
+    background: #1d2225;
+    border-radius: 4px;
+  }
+  
+  .notificationList::-webkit-scrollbar-track {
+    background: #3d474f;
+    border-radius: 4px;
+  }
+  
+  .notificationHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .closeButton {
+    color: whitesmoke;
+    margin-left: auto;
+  }
+
+  .closeButton:hover{
+    background: #3d474f;
+  }
+  
+  .markAsReadButton {
+    color: whitesmoke;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .markAsReadButton:hover {
+    background: #3d474f;
+  }
+  
+  .notificationList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+  }
+  
+  .notificationItem {
+    padding: 30px;
+    border-radius: 6px;
+    background: #f9f9f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: whitesmoke;
+    
+  }
+  
+  .active {
+    background: #4A90E2;
+  }
+  
+  .inactive {
+    background: #2C333A;
+  }
+  
